@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <style>
+    #map{ 
+      height: 800px;
+      width: 100%; }
+    </style>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaflet Squirrel - Step 0</title>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 
-    <style>
-    #map{ height: 100% }
-    </style>
 </head>
 <body>
   <div id="map"></div>
@@ -18,22 +22,20 @@
   // initialize the map centered on the geographic center of the lower 48
   var map = L.map('map').setView([39.833, -98.35], 4);
 
-  // load tile layer from mapstack we copied earlier and use the required attribution
-  L.tileLayer(
-    'http://{s}.sm.mapstack.stamen.com/((naip,$fff[difference],$fff[@60],$fff[hsl-saturation@90])[multiply],(mapbox-water,$fff[difference],$000[@60],$090d11[hsl-color]))/{z}/{x}/{y}.png', {
-        attribution: 'Map tiles by <a href=”http://stamen.com”>Stamen Design</a>, under <a href=”http://creativecommons.org/licenses/by/3.0”>CC BY 3.0</a>. Data by <a href=”http://openstreetmap.org”>OpenStreetMap</a>, under <a href=”http://creativecommons.org/licenses/by-sa/3.0”>CC BY SA</a>',
-      // we want to limit the scrollability
+  // load tile layer from leaflet we copied earlier and use the required attribution
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       maxZoom: 19,
       minZoom: 4
     }).addTo(map);
-    
-     // load the geojson file you saved in this directory
-  $.getJSON("ssa-capitals.geojson",function(data){
+
+  // load the geojson file you saved in this directory
+  $.getJSON("../leaflet-medium/data/ssa-capitals.geojson",function(data){
     // add it to the map 
     L.geoJson(data).addTo(map);
   });
 
   </script>
+  
 </body>
 </html>
-
