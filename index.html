@@ -4,6 +4,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     
+   
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> <!-- Load jQuery -->
+
     <style>
     #map{ 
       height: 800px;
@@ -29,12 +32,19 @@
       minZoom: 4
     }).addTo(map);
 
-  // load the geojson file you saved in this directory
-  $.getJSON("../leaflet-medium/data/ssa-capitals.geojson",function(data){
-    // add it to the map 
-    L.geoJson(data).addTo(map);
-  });
-
+  // load the geojson rat types and lcoation file saved in this directory
+ 
+    $.getJSON("data/ssa-capitals.geojson", function(data) {
+      var squirrelIcon = L.icon({
+        iconURL: 'images/squirrel-king-icon.webp',
+        iconSize:[48,48]
+      });
+      L.geoJSON(data,{
+        pointToLayer: function(feature,latlng){
+          return L.marker(latlng,{icon: squirrrelIcon})
+        }
+      }).addTo(map);
+    });
   </script>
   
 </body>
