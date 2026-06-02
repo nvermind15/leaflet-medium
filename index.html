@@ -36,13 +36,17 @@
  
     $.getJSON("data/ssa-capitals.geojson", function(data) {
       var squirrelIcon = L.icon({
-        iconURL: 'images/squirrel-king-icon.webp',
+        iconUrl: "images/squirrel-king-icon.png",
         iconSize:[48,48]
       });
       L.geoJSON(data,{
-        pointToLayer: function(feature,latlng){
-          return L.marker(latlng,{icon: squirrrelIcon})
-        }
+      pointToLayer: function(feature,latlng){
+      var marker = L.marker(latlng,{
+      icon: squirrelIcon
+      });
+      marker.bindPopup('<b>Name: </b>' + feature.properties.FeatureNa + '<br/>' + '<b>Elevation: </b>' + feature.properties.elev);
+        return marker;
+      }
       }).addTo(map);
     });
   </script>
